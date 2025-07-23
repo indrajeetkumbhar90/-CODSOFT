@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple ChatBot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #1f1f2e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      background: #ffffff10;
+      backdrop-filter: blur(10px);
+      border: 1px solid #444;
+      border-radius: 12px;
+      width: 350px;
+      max-width: 90%;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    header {
+      background: #333c4f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-bottom: 1px solid #444;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background: #2b2e3b;
+      color: #eee;
+    }
+
+    .input-area {
+      display: flex;
+      border-top: 1px solid #444;
+    }
+
+    .input-area input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      background: #30dce9;
+      color: white;
+      font-size: 1rem;
+    }
+
+    .input-area button {
+      background: #92092b;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .input-area button:hover {
+      background: #8aa3f0;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 80%;
+    }
+
+    .message.user {
+      background: #96bae2;
+      color: white;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .message.bot {
+      background: #f3a7a7;
+      color: white;
+      align-self: flex-start;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <header>Simple ChatBot</header>
+    <div id="chat-box" class="chat-box"></div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="Type a message...">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const inputField = document.getElementById("user-input");
+      const userText = inputField.value.trim();
+      if (!userText) return;
+
+      displayMessage(userText, "user");
+
+      let response = getBotResponse(userText.toLowerCase());
+      setTimeout(() => displayMessage(response, "bot"), 500);
+
+      inputField.value = "";
+    }
+
+    function displayMessage(message, sender) {
+      const chatBox = document.getElementById("chat-box");
+      const messageDiv = document.createElement("div");
+      messageDiv.className = `message ${sender}`;
+      messageDiv.innerText = message;
+      chatBox.appendChild(messageDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+      if (input.includes("hello") || input.includes("hi")) {
+        return "Hello! How can I help you today?";
+      } else if (input.includes("your name")) {
+        return "I'm a simple chatbot created just for you!";
+      } else if (input.includes("how are you")) {
+        return "I'm just a bunch of code that responds to user inputs, but I'm doing great!";
+      } else if (input.includes("bye")) {
+        return "Goodbye! Talk to you later.";
+      } else {
+        return "Sorry, I didn't understand that. Try asking something else.";
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Movie Recommender</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #b84141;
+      color: #fa9494;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #6767be;
+      padding: 30px;
+      border-radius: 12px;
+      width: 350px;
+      box-shadow: 0 0 15px rgba(143, 62, 62, 0.6);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #ffa500;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    select {
+      background: #2d2d3a;
+      color: #fff;
+    }
+
+    button {
+      background: #ff9500;
+      color: #fff;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #ff7700;
+    }
+
+    .result {
+      margin-top: 25px;
+      padding: 15px;
+      background: #2a2a3c;
+      border-radius: 8px;
+      color: #f0f0f0;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Movie Recommender</h1>
+
+    <label for="genre">Select Genre:</label>
+    <select id="genre">
+      <option value="action">Action</option>
+      <option value="comedy">Comedy</option>
+      <option value="drama">Drama</option>
+      <option value="sci-fi">Sci-Fi</option>
+      <option value="horror">Horror</option>
+    </select>
+
+    <label for="mood">Select Mood:</label>
+    <select id="mood">
+      <option value="funny">Funny</option>
+      <option value="exciting">Exciting</option>
+      <option value="thoughtful">Thoughtful</option>
+      <option value="dark">Dark</option>
+    </select>
+
+    <button onclick="recommendMovie()">Recommend Movie</button>
+
+    <div class="result" id="resultBox">Your recommendation will appear here.</div>
+  </div>
+
+  <script>
+    const movies = [
+      { title: "Inception", genre: "sci-fi", mood: "thoughtful" },
+      { title: "The Dark Knight", genre: "action", mood: "dark" },
+      { title: "Interstellar", genre: "sci-fi", mood: "thoughtful" },
+      { title: "Joker", genre: "drama", mood: "dark" },
+      { title: "The Hangover", genre: "comedy", mood: "funny" },
+      { title: "John Wick", genre: "action", mood: "exciting" },
+      { title: "Get Out", genre: "horror", mood: "dark" },
+      { title: "The Martian", genre: "sci-fi", mood: "funny" },
+      { title: "Forrest Gump", genre: "drama", mood: "thoughtful" },
+      { title: "Deadpool", genre: "action", mood: "funny" }
+    ];
+
+    function recommendMovie() {
+      const genre = document.getElementById("genre").value;
+      const mood = document.getElementById("mood").value;
+
+      const filtered = movies.filter(movie => movie.genre === genre && movie.mood === mood);
+
+      const resultBox = document.getElementById("resultBox");
+
+      if (filtered.length > 0) {
+        const recommendation = filtered[Math.floor(Math.random() * filtered.length)];
+        resultBox.textContent = `You should watch: 🎬 "${recommendation.title}"`;
+      } else {
+        resultBox.textContent = "No exact match found. Try changing your preferences.";
+      }
+    }
+  </script>
+</body>
+</html>
